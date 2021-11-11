@@ -57,7 +57,7 @@
         Finally, the out tag can output a value created by a set tag using EL.
 
         EL stands for expression language. You can enclose an EL statement in '\${}' and it will be
-        evaluated to produce a value. Some IDEs can autocomplete in here.
+        evaluated to produce a value. Some IDEs can auto-complete in here.
     -->
     <h1>Example 3</h1>
     <c:set var="my_variable" value="Some sort of value..." />
