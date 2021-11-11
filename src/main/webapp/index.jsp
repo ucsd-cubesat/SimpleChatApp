@@ -26,12 +26,13 @@
 
         NOTE: We want to avoid scriptlets in general, so try to use JSTL tags instead.
     -->
-    <h>Example 1</h>
+    <h1>Example 1</h1>
     <%
         out.print("<p>This paragraph was made with JSP!</p>");
     %>
     <p>This paragraph was made with plain HTML!</p>
-
+    
+    <p>This is a list generated with JSP:</p>
     <ul>
     <%
         for (int i = 0; i < 10; i++) {
@@ -46,7 +47,7 @@
 
         This example makes function calls that return values.
     -->
-    <h>Example 2</h>
+    <h1>Example 2</h1>
     <p>Max of 100 and 10 is: <%= Math.max(100, 10) %></p>
     <p>Did you know: <%= "A string literal counts as an expression." %></p>
     <p>OS of server: <%= System.getProperty("os.name") %></p>
@@ -58,22 +59,22 @@
         EL stands for expression language. You can enclose an EL statement in '\${}' and it will be
         evaluated to produce a value. Some IDEs can autocomplete in here.
     -->
-    <h>Example 3</h>
+    <h1>Example 3</h1>
     <c:set var="my_variable" value="Some sort of value..." />
     <p>my_variable = <c:out value="${my_variable}"/></p>
     <p><c:out value="This paragraph was created without EL."/></p>
 
     <!-- Example 4: Conditionals
-        The when tag evaluates its inner tags only if the specified condition is true.
+        The if tag evaluates its inner tags only if the specified condition is true.
 
         NOTE: The 'pageContext' object is also an implicit object. Read more about it here:
         https://www.javatpoint.com/pageContext-implicit-object
     -->
     <% pageContext.setAttribute("millis", System.currentTimeMillis()); %>
-    <c:when test="${millis % 2 == 0}">
-        <h>Example 4</h>
+    <c:if test="${millis % 2 == 0}">
+        <h1>Example 4</h1>
         <p>This only appears when the server's current time is an even number!</p>
-    </c:when>
+    </c:if>
 
     <!-- Import Statements
         If you need to import classes into the page, use the import page like so.
