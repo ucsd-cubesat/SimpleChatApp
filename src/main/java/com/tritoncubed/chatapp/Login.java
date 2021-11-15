@@ -2,7 +2,9 @@ package com.tritoncubed.chatapp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.http.*;
 import javax.servlet.ServletException;
@@ -50,16 +52,21 @@ public class Login extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("userPassword");
-        HttpSession session = request.getSession();
+        List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
 
         // Check to see if it is a new account
         boolean newUser = false;
-        for (String item : Collections.list(request.getParameterNames())) {
-          if (item == "isNewAccount")
+        for (String item : parameterNames) {
+          if (item.equals("isNewAccount"))
             newUser = true;
         }
         System.out.println(Collections.list(request.getParameterNames()));
 
+        
+        // Record user credentials for this session
+        HttpSession session = request.getSession();
+        session.setAttribute("username", username);
+        session.setAttribute("password", password);
         
         
         // Check for login status!
@@ -67,8 +74,11 @@ public class Login extends HttpServlet {
         // If new user, record a new user
         if (newUser) {
           System.out.println("You are a new user!");
-          // Register/record a new user
 
+          
+          // placeholder method - does nothing
+          createAccount(username, password);
+          
           // For now, redirect to the chat page
           request.getRequestDispatcher("/index.html").forward(request, response);
         }
@@ -79,7 +89,7 @@ public class Login extends HttpServlet {
         
           System.out.println("Welcome back!");
 
-	        request.getRequestDispatcher("/index.html").forward(request, response);
+          request.getRequestDispatcher("/index.html").forward(request, response);
         }
 
         // Else, you're a stranger! Redirect to login page.
@@ -87,8 +97,6 @@ public class Login extends HttpServlet {
           request.getRequestDispatcher("/login.html").forward(request, response);
         }
         
-
-
     }
 
     /**
