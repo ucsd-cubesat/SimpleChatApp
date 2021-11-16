@@ -19,92 +19,97 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Login() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Login() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    private boolean auth(String userId, String password) {
+	private boolean auth(String userId, String password) {
 		/*
-			Edit this method to check for correct Usernames and Passwords in DynamoDB
-		*/
-        return true;
-    }
-	
+		 * Edit this method to check for correct Usernames and Passwords in DynamoDB
+		 */
+		return true;
+	}
+
 	private boolean createAccount(String userId, String password) {
 		/*
-			Edit this method to add a new account with given username and password in DynamoDB
-		*/
+		 * Edit this method to add a new account with given username and password in
+		 * DynamoDB
+		 */
 		return true; // True if successful
 	}
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        // response.getWriter().append("Served at: ").append(request.getContextPath());
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("userPassword");
-        List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        // Check to see if it is a new account
-        boolean newUser = false;
-        for (String item : parameterNames) {
-          if (item.equals("isNewAccount"))
-            newUser = true;
-        }
-        System.out.println(Collections.list(request.getParameterNames()));
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
-        
-        // Record user credentials for this session
-        HttpSession session = request.getSession();
-        session.setAttribute("username", username);
-        session.setAttribute("password", password);
-        
-        
-        // Check for login status!
+		String username = request.getParameter("username");
+		String password = request.getParameter("userPassword");
+		List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
 
-        // If new user, record a new user
-        if (newUser) {
-          System.out.println("You are a new user!");
+		// Check to see if it is a new account
+		boolean newUser = false;
+		for (String item : parameterNames) {
+			if (item.equals("isNewAccount"))
+				newUser = true;
+		}
+		System.out.println(Collections.list(request.getParameterNames()));
 
-          
-          // placeholder method - does nothing
-          createAccount(username, password);
-          
-          // For now, redirect to the chat page
-          request.getRequestDispatcher("/index.html").forward(request, response);
-        }
+		// Record user credentials for this session
+		HttpSession session = request.getSession();
+		session.setAttribute("username", username);
+		session.setAttribute("password", password);
 
-        // If they aren't a new user, then try to authenticate
-        // Placeholder method to check whether the person is authenticated (for now, this is always true)
-        else if (auth(username, password)) {
-        
-          System.out.println("Welcome back!");
+		// Check for login status!
 
-          request.getRequestDispatcher("/index.html").forward(request, response);
-        }
+		// If new user, record a new user
+		if (newUser) {
+			System.out.println("You are a new user!");
 
-        // Else, you're a stranger! Redirect to login page.
-        else {
-          request.getRequestDispatcher("/login.html").forward(request, response);
-        }
-        
-    }
+			// placeholder method - does nothing
+			createAccount(username, password);
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      assert true;
-    }
+			// For now, redirect to the chat page
+			request.getRequestDispatcher("/index.html").forward(request, response);
+		}
+
+		// If they aren't a new user, then try to authenticate
+		// Placeholder method to check whether the person is authenticated (for now,
+		// this is always true)
+		else if (auth(username, password)) {
+
+			System.out.println("Welcome back!");
+
+			request.getRequestDispatcher("/index.html").forward(request, response);
+		}
+
+		// Else, you're a stranger! Redirect to login page.
+		else {
+			
+			session.invalidate();
+
+			request.getRequestDispatcher("/login.html").forward(request, response);
+		}
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		assert true;
+	}
 
 }
