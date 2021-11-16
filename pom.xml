@@ -70,7 +70,9 @@
         <configuration>
           <configLocation>checkstyle.xml</configLocation>
           <linkXRef>false</linkXRef>
+          <failsOnError>true</failsOnError>
           <failOnViolation>true</failOnViolation>
+          <violationSeverity>warning</violationSeverity>
           <logViolationsToConsole>true</logViolationsToConsole>
         </configuration>
         <dependencies>
