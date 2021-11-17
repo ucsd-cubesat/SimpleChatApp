@@ -51,8 +51,8 @@ public class Login extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
-
+		// response.getWriter().append("Served at: ").append(request.getContextPath());		
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("userPassword");
 		List<String> parameterNames = new ArrayList<String>(request.getParameterMap().keySet());
@@ -69,7 +69,7 @@ public class Login extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("username", username);
 		session.setAttribute("password", password);
-
+		
 		// Check for login status!
 
 		// If new user, record a new user
@@ -96,9 +96,9 @@ public class Login extends HttpServlet {
 		// Else, you're a stranger! Redirect to login page.
 		else {
 			
-			session.invalidate();
-
-			request.getRequestDispatcher("/login.html").forward(request, response);
+//			session.invalidate();
+//			request.setAttribute("errorMessage", "Account Authentication Failed");
+//			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 	}
