@@ -1,23 +1,19 @@
+<!-- Login page that interacts with Login.java (Login servlet) -->
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> --%>
-<%-- <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %> --%>
-
-
-<!-- <title>Log in</title> -->
-<!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+<title>Log in</title>
 
 <html>
 <head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="https://unpkg.com/tailwindcss@%5E2/dist/tailwind.min.css"
-	rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<!-- Tailwindcss package import -->
+	<link href="https://unpkg.com/tailwindcss@%5E2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body>
-
 
 	<!-- Display the error message pop-up if there was a failed authentication -->
 	
@@ -86,8 +82,10 @@
 				</div>
 
 			</form>
-			<p class="text-center text-gray-500 text-xs">&copy;Placeholder.
-				All rights reserved.</p>
+			<!-- Copyright symbol under the form. Needs to be updated -->
+			<p class="text-center text-gray-500 text-xs">
+				&copy;Placeholder. All rights reserved.
+			</p>
 		</div>
 	</div>
 

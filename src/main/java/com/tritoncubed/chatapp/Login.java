@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Login
- * 
+ * Servlet for the Login page. This interacts with login.jsp to authenticate (needs to be added)
+ * or create accounts (also needs to be added). If there is an error (there currently aren't 
+ * any means of actually getting an error) the servlet responds with a redirect back to the Login
+ * page and displays a popup with an error message.
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -63,7 +65,6 @@ public class Login extends HttpServlet {
 			if (item.equals("isNewAccount"))
 				newUser = true;
 		}
-		System.out.println(Collections.list(request.getParameterNames()));
 
 		// Record user credentials for this session
 		HttpSession session = request.getSession();
@@ -80,12 +81,13 @@ public class Login extends HttpServlet {
 			createAccount(username, password);
 
 			// For now, redirect to the chat page
-			request.getRequestDispatcher("/index.html").forward(request, response);
+			request.getRequestDispatcher("/index.html").forward(request, response);			
+			
 		}
 
 		// If they aren't a new user, then try to authenticate
-		// Placeholder method to check whether the person is authenticated (for now,
-		// this is always true)
+		// 'auth' is a placeholder method to check whether the person is authenticated 
+		// (for now, this is always true, so the function doesn't do anything)
 		else if (auth(username, password)) {
 
 			System.out.println("Welcome back!");
@@ -93,12 +95,11 @@ public class Login extends HttpServlet {
 			request.getRequestDispatcher("/index.html").forward(request, response);
 		}
 
-		// Else, you're a stranger! Redirect to login page.
+		// Else, you're a stranger! Redirect to login page with an error message.
 		else {
-			
-//			session.invalidate();
-//			request.setAttribute("errorMessage", "Account Authentication Failed");
-//			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			session.invalidate();
+			request.setAttribute("errorMessage", "Account Authentication Failed");
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
 
 	}
