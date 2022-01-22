@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import java.util.HashMap;
 import java.util.Map;
-//import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
@@ -48,20 +48,18 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-          String username = request.getParameter();
-    	  String password = request.getParameter();
+          String username = request.getParameter("username");
+    	  String password = request.getParameter("password");
     	  
     	  AmazonDynamoDB DB = AmazonDynamoDBClient.builder()
                   .withRegion(Regions.US_EAST_2)
                   .build();
 
-           DynamoDB dynamoDB = new DynamoDB(client);
-
+           DynamoDB dynamoDB = new DynamoDB(DB);
            Table table = dynamoDB.getTable("UserLogins");
            
            final Map<String, Object> infoMap = new HashMap<String, Object>();
            
-           final Map<String, Object> infoMap = new HashMap<String, Object>();
            infoMap.put("password", password);
 
            try {
@@ -73,10 +71,10 @@ public class LoginServlet extends HttpServlet {
 
            }
            catch (Exception e) {
-               System.err.println("Unable to add item: " + year + " " + title);
+               System.err.println("Unable to add item: ");
                System.err.println(e.getMessage());
            }
            
-    	  response.getWriter().append("Login Successful");
+    	  response.getWriter().append("Login Attempt Complete");
     }
 }
