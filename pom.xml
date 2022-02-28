@@ -84,8 +84,8 @@
         </dependencies>
         <executions>
           <execution>
-            <id>checkstyle</id>
-            <phase>verify</phase>
+            <id>validate</id>
+            <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>
